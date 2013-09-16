@@ -84,12 +84,7 @@ function options_for_select($options = array(), $selected = '', $html_options = 
     {
       $option_options = array('value' => $key);
 
-      if (
-          (is_array($selected) && in_array(strval($key), $selected, true))
-          ||
-          (strval($key) == strval($selected))
-         )
-      {
+      if (isset($selected_set[strval($key)])) {
         $option_options['selected'] = 'selected';
       }
 
@@ -497,7 +492,7 @@ function textarea_tag($name, $content = null, $options = array())
 
   if ($size = _get_option($options, 'size'))
   {
-    list($options['cols'], $options['rows']) = split('x', $size, 2);
+    list($options['cols'], $options['rows']) = explode('x', $size, 2);
   }
 
   // rich control?
