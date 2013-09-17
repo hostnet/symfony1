@@ -58,10 +58,13 @@ function options_for_select($options = array(), $selected = '', $html_options = 
 {
   $html_options = _parse_attributes($html_options);
 
-  if (is_array($selected))
+  if (!is_array($selected))
   {
-    $selected = array_map('strval', array_values($selected));
+    $selected = array($selected);
   }
+
+  $selected = array_map('strval', array_values($selected));
+  $selected_set = array_flip($selected);
 
   $html = '';
 
