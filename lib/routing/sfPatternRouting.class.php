@@ -58,9 +58,16 @@ class sfPatternRouting extends sfRouting
       $options['variable_regex'] = '[\w\d_]+';
     }
 
-    $options['variable_prefix_regex']    = '(?:'.implode('|', array_map(create_function('$a', 'return preg_quote($a, \'#\');'), $options['variable_prefixes'])).')';
-    $options['segment_separators_regex'] = '(?:'.implode('|', array_map(create_function('$a', 'return preg_quote($a, \'#\');'), $options['segment_separators'])).')';
-    $options['variable_content_regex']   = '[^'.implode('', array_map(create_function('$a', 'return str_replace(\'-\', \'\-\', preg_quote($a, \'#\'));'), $options['segment_separators'])).']+';
+    $quote   = function ($a) {
+        return preg_quote($a, '#');
+    };
+    $replace = function ($a) {
+        return str_replace('-', '\-', preg_quote($a, '#'));
+    };
+
+    $options['variable_prefix_regex']    = '(?:'.implode('|', array_map($quote, $options['variable_prefixes'])).')';
+    $options['segment_separators_regex'] = '(?:'.implode('|', array_map($quote, $options['segment_separators'])).')';
+    $options['variable_content_regex']   = '[^'.implode('', array_map($replace, $options['segment_separators'])).']+';
 
     if (!isset($options['load_configuration']))
     {
