@@ -57,10 +57,9 @@ class TGettext_MO extends TGettext
      * Constructor
      *
      * @access  public
-     * @return  object      File_Gettext_MO
      * @param   string      $file   path to GNU MO file
      */
-    function TGettext_MO($file = '')
+    function __construct($file = '')
     {
         $this->file = $file;
     }
