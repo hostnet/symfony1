@@ -1,0 +1,4 @@
+# Exclude non-essential files from dist.
+/.*                  export-ignore
+/test/               export-ignore
+/lib/plugins/*/test/ export-ignore
