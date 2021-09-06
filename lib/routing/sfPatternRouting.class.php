@@ -507,7 +507,7 @@ class sfPatternRouting extends sfRouting
       $tparams = $this->mergeArrays($defaults, $params);
 
       // all params must be given
-      if ($diff = array_diff_key($variables, array_filter($tparams, create_function('$v', 'return !is_null($v);'))))
+      if ($diff = array_diff_key($variables, array_filter($tparams, function($v) { return !is_null($v); })))
       {
         throw new InvalidArgumentException(sprintf('The "%s" route has some missing mandatory parameters (%s).', $name, implode(', ', $diff)));
       }
@@ -567,7 +567,12 @@ class sfPatternRouting extends sfRouting
     $realUrl = $url;
 
     $tmp = $variables;
-    uasort($tmp, create_function('$a, $b', 'return strlen($a) < strlen($b);'));
+    uasort(
+      $tmp,
+      function($a, $b) {
+        return strlen($a) < strlen($b);
+      }
+    );
     foreach ($tmp as $variable => $value)
     {
       $realUrl = str_replace($value, urlencode($tparams[$variable]), $realUrl);
