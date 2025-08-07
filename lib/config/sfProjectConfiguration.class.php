@@ -20,7 +20,8 @@ class sfProjectConfiguration
 {
   protected
     $rootDir       = null,
-    $symfonyLibDir = null;
+    $symfonyLibDir = null,
+    $dispatcher    = null;
 
   static protected
     $active = null;
